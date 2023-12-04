@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Canvas Account Setup</title>
+</head>
+<body>
+  <h1>Canvas Account Setup</h1>
+  
+  <!-- OAuth setup -->
+  <div id="oauth-setup">
+    <p>Please authorize access to your Canvas account:</p>
+    <!-- Add OAuth setup elements here -->
+    <!-- For example, buttons, forms, etc. -->
+    <button id="authorize-button">Authorize</button>
+    <p>Status: <span id="oauth-status">Not Authorized</span></p>
+  </div>
+  
+  <!-- Start sync button -->
+  <button id="start-sync-button">Start Sync</button>
+
+  <script>
+    document.getElementById('authorize-button').addEventListener('click', function() {
+      // Simulated OAuth authorization process
+      // Replace this with your actual OAuth flow
+      
+        // Example: Making a GET request using Fetch API
+      fetch('http://localhost:8080/api/v1/auth', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          // Add any necessary headers or authentication tokens
+        },
+      })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error('Network response was not ok.');
+      })
+      .then(data => {
+        // Handle the response data here
+        console.log('Received data:', data);
+      })
+      .catch(error => {
+        // Handle errors
+        console.error('Error:', error);
+      });
+      
+      // Example: Change status to authorized
+      document.getElementById('oauth-status').textContent = 'Authorized';
+    });
+
+    document.getElementById('start-sync-button').addEventListener('click', function() {
+      // Simulated REST service call
+      // Replace this with your actual REST service endpoint
+      
+      // Example: Making a GET request using Fetch API
+      fetch('http://localhost:8080/actuator/canvas-sync', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          // Add any necessary headers or authentication tokens
+        },
+      })
+      .then(response => {
+        if (response.ok) {
+		  document.getElementById('start-sync-button').textContent = "Done With Account And Course Sync";
+          return response.json();
+        }
+        throw new Error('Network response was not ok.');
+      })
+      .then(data => {
+        // Handle the response data here
+        console.log('Received data:', data);
+      })
+      .catch(error => {
+        // Handle errors
+        console.error('Error:', error);
+      });
+      
+    });
+  </script>
+</body>
+</html>
